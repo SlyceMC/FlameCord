@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.github.waterfallmc</groupId>
-    <artifactId>flamecord-super</artifactId>
+    <artifactId>waterfall-super</artifactId>
     <version>dev-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>FlameCord-Super</name>
+    <name>Waterfall-Super</name>
     <description>Super project for FlameCord.</description>
     <url>https://github.com/2lstudios-mc/FlameCord</url>
 
