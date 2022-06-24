@@ -1,11 +1,11 @@
-From 08d5bd1686d021b4ea1d27aa5fef85ca0a2743ab Mon Sep 17 00:00:00 2001
+From fd425f8a23b16f34f1a538cb1f7c64cab08cfb33 Mon Sep 17 00:00:00 2001
 From: LinsaFTW <25271111+linsaftw@users.noreply.github.com>
 Date: Fri, 4 Mar 2022 13:35:53 -0300
 Subject: [PATCH] Antibot System
 
 
 diff --git a/flamecord/pom.xml b/flamecord/pom.xml
-index f4bf5ec6..4a0d8e5d 100644
+index 20edd900..5978bec6 100644
 --- a/flamecord/pom.xml
 +++ b/flamecord/pom.xml
 @@ -30,6 +30,11 @@
@@ -443,7 +443,7 @@ index 00000000..8507e1a7
 +}
 diff --git a/flamecord/src/main/java/dev/_2lstudios/antibot/FastChatCheck.java b/flamecord/src/main/java/dev/_2lstudios/antibot/FastChatCheck.java
 new file mode 100644
-index 00000000..76902c27
+index 00000000..61d4ca83
 --- /dev/null
 +++ b/flamecord/src/main/java/dev/_2lstudios/antibot/FastChatCheck.java
 @@ -0,0 +1,32 @@
@@ -908,10 +908,10 @@ index 5d92c20c..da3f915f 100644
  
              this.loggerInitialhandler = setIfUnexistant("logger.initialhandler", this.loggerInitialhandler, configuration);
 diff --git a/flamecord/src/main/java/dev/_2lstudios/flamecord/configuration/MessagesConfiguration.java b/flamecord/src/main/java/dev/_2lstudios/flamecord/configuration/MessagesConfiguration.java
-index 57462992..ee0295c7 100644
+index 4f306660..33c40733 100644
 --- a/flamecord/src/main/java/dev/_2lstudios/flamecord/configuration/MessagesConfiguration.java
 +++ b/flamecord/src/main/java/dev/_2lstudios/flamecord/configuration/MessagesConfiguration.java
-@@ -81,6 +81,17 @@ public class MessagesConfiguration extends FlameConfig {
+@@ -82,6 +82,17 @@ public class MessagesConfiguration extends FlameConfig {
  			setIfUnexistant("command_ip", "&9IP of {0} is {1}", configuration);
  			setIfUnexistant("illegal_chat_characters", "&cIllegal characters in chat ({0})", configuration);
  
@@ -930,10 +930,10 @@ index 57462992..ee0295c7 100644
  			setIfUnexistant("flamecord_reload", "&aAll files had been successfully reloaded!", configuration);
  			setIfUnexistant("flamecord_help",
 diff --git a/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java b/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java
-index 0a09f92c..f20acb2f 100644
+index caff4e99..ad5fc0ae 100644
 --- a/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java
 +++ b/proxy/src/main/java/net/md_5/bungee/connection/InitialHandler.java
-@@ -19,6 +19,8 @@ import java.util.logging.Level;
+@@ -20,6 +20,8 @@ import java.util.logging.Level;
  import javax.crypto.SecretKey;
  import javax.crypto.spec.SecretKeySpec;
  
@@ -942,7 +942,7 @@ index 0a09f92c..f20acb2f 100644
  import dev._2lstudios.flamecord.FlameCord;
  
  import dev._2lstudios.flamecord.configuration.FlameConfig;
-@@ -415,6 +417,11 @@ public class InitialHandler extends PacketHandler implements PendingConnection
+@@ -417,6 +419,11 @@ public class InitialHandler extends PacketHandler implements PendingConnection
              return;
          }
  
@@ -954,7 +954,7 @@ index 0a09f92c..f20acb2f 100644
          switch ( handshake.getRequestedProtocol() )
          {
              case 1:
-@@ -426,6 +433,22 @@ public class InitialHandler extends PacketHandler implements PendingConnection
+@@ -428,6 +435,22 @@ public class InitialHandler extends PacketHandler implements PendingConnection
                  }
                  thisState = State.STATUS;
                  ch.setProtocol( Protocol.STATUS );
@@ -977,7 +977,7 @@ index 0a09f92c..f20acb2f 100644
                  break;
              case 2:
                  // Login
-@@ -437,6 +460,21 @@ public class InitialHandler extends PacketHandler implements PendingConnection
+@@ -439,6 +462,21 @@ public class InitialHandler extends PacketHandler implements PendingConnection
                  thisState = State.USERNAME;
                  ch.setProtocol( Protocol.LOGIN );
  
@@ -999,7 +999,7 @@ index 0a09f92c..f20acb2f 100644
                  if ( !ProtocolConstants.SUPPORTED_VERSION_IDS.contains( handshake.getProtocolVersion() ) )
                  {
                      if ( handshake.getProtocolVersion() > bungee.getProtocolVersion() )
-@@ -474,6 +512,58 @@ public class InitialHandler extends PacketHandler implements PendingConnection
+@@ -499,6 +537,58 @@ public class InitialHandler extends PacketHandler implements PendingConnection
              return;
          }
  
@@ -1059,7 +1059,7 @@ index 0a09f92c..f20acb2f 100644
          // We can just check by UUID here as names are based on UUID
          if ( !isOnlineMode() && bungee.getPlayer( getUniqueId() ) != null )
 diff --git a/proxy/src/main/java/net/md_5/bungee/connection/UpstreamBridge.java b/proxy/src/main/java/net/md_5/bungee/connection/UpstreamBridge.java
-index e354032a..f5fc53bc 100644
+index fa87750f..67263bca 100644
 --- a/proxy/src/main/java/net/md_5/bungee/connection/UpstreamBridge.java
 +++ b/proxy/src/main/java/net/md_5/bungee/connection/UpstreamBridge.java
 @@ -4,10 +4,15 @@ import com.google.common.base.Preconditions;
@@ -1078,7 +1078,7 @@ index e354032a..f5fc53bc 100644
  import net.md_5.bungee.BungeeCord;
  import net.md_5.bungee.ServerConnection.KeepAliveData;
  import net.md_5.bungee.UserConnection;
-@@ -166,6 +171,32 @@ public class UpstreamBridge extends PacketHandler
+@@ -192,6 +197,32 @@ public class UpstreamBridge extends PacketHandler
          }
          Preconditions.checkArgument(!empty, "Chat message is empty");
  
@@ -1096,7 +1096,7 @@ index e354032a..f5fc53bc 100644
 +            throw CancelSendSignal.INSTANCE;
 +        }
 +
-+        if ( checkManager.getPasswordCheck().check( con.getCh().getRemoteAddress(), chat.getMessage() ) )
++        if ( checkManager.getPasswordCheck().check( con.getCh().getRemoteAddress(), message ) )
 +        {
 +            if ( FlameCord.getInstance().getFlameCordConfiguration().isAntibotPasswordLog() )
 +            {
@@ -1108,11 +1108,11 @@ index e354032a..f5fc53bc 100644
 +        }
 +        // FlameCord end - Antibot System
 +
-         ChatEvent chatEvent = new ChatEvent( con, con.getServer(), chat.getMessage() );
+         ChatEvent chatEvent = new ChatEvent( con, con.getServer(), message );
          if ( !bungee.getPluginManager().callEvent( chatEvent ).isCancelled() )
          {
 diff --git a/proxy/src/main/java/net/md_5/bungee/netty/HandlerBoss.java b/proxy/src/main/java/net/md_5/bungee/netty/HandlerBoss.java
-index 20c4c0a4..a2086b45 100644
+index 20c4c0a4..c737482e 100644
 --- a/proxy/src/main/java/net/md_5/bungee/netty/HandlerBoss.java
 +++ b/proxy/src/main/java/net/md_5/bungee/netty/HandlerBoss.java
 @@ -152,6 +152,13 @@ public class HandlerBoss extends ChannelInboundHandlerAdapter
@@ -1120,7 +1120,7 @@ index 20c4c0a4..a2086b45 100644
              boolean logExceptions = !( handler instanceof PingHandler );
  
 +            // Flamecord start - Antibot System
-+            if (!(cause instanceof ReadTimeoutException))
++            if (!(cause instanceof ReadTimeoutException && cause instanceof IOException))
 +            {
 +                FlameCord.getInstance().getAddressDataManager().getAddressData(ctx.channel().remoteAddress()).firewall();
 +            }
@@ -1154,5 +1154,5 @@ index ffea1599..6bf109f5 100644
              {
                  ch.close();
 -- 
-2.34.1
+2.36.1.windows.1
 
